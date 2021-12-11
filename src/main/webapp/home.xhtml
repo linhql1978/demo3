@@ -3,23 +3,30 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<head>
-    <title>JSF Tutorial!</title>
-</head>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-<body>
-<h2>h:inputText example</h2>
-<hr />
+    <h:form id="my-form">
+        <h:commandButton value="click me"/>
+        <h:dataTable value="#{appClient.events}" var="rowData">
+            <h:column>
+                <f:facet name="header">
+                    id
+                </f:facet>
+                <h:outputText value="#{rowData[0]}"/>
+            </h:column>
 
-<h:form>
-    <h3>Read-Only input text box</h3>
-    <h:inputText value = "Hello World!"/>
-    <h3>Read-Only input text box</h3>
-    <h:inputText value = "Hello World"/>
-    <h:outputText value="#{appClient.callProcedure()}"/>
-</h:form>
+            <h:column>
+                <f:facet name="header">
+                    name
+                </f:facet>
+                <h:outputText value="#{rowData[1]}"/>
+            </h:column>
+        </h:dataTable>
 
-</body>
+        <h:commandButton value="Insert Event" action="#{appClient.insertEvent()}" update="my-form"/>
+        <h:inputText value="#{appClient.id}" label="ID"/><br/>
+        <h:inputText value="#{appClient.name}" label="Name"/><br/>
+        <h:outputText value="#{appClient.status}" label="Status"/>
+    </h:form>
 </html>
